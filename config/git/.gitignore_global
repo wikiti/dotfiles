@@ -8,15 +8,6 @@
 ehthumbs.db
 Thumbs.db
 
-# IDE generated files
-
-.idea/
-*.iml
-*.iws
-.idea-compl
-*.sc
-.vscode/
-
 # Binary generated files
 
 *.com

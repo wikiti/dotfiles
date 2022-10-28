@@ -1,0 +1,18 @@
+[user]
+  name = Daniel Herzog
+  email = wikiti.doghound@gmail.com
+
+[core]
+  excludesfile = ~/.gitignore_global
+
+[alias]
+  co = checkout
+  ci = commit
+  st = status
+  rb = rebase
+  a = add
+  up = pull --rebase --autostash
+  pu = push --force-with-lease
+
+[push]
+  default = current

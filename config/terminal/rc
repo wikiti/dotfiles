@@ -1,0 +1,10 @@
+#!/bin/sh
+
+script_dir="$( dirname -- "${BASH_SOURCE[0]}"; )"
+
+for file in "$script_dir"/*
+do
+  [ "$file" != "$script_dir/rc" ] && . $file
+done
+
+return 0

@@ -1,0 +1,9 @@
+#!/bin/sh
+
+alias npr="npm run"
+alias download="wget -P ~/Downloads"
+alias gk="gitk --all"
+alias g="git"
+alias b="bundle"
+alias be="bundle exec"
+alias speedtest="curl -s https://raw.githubusercontent.com/sivel/speedtest-cli/master/speedtest.py | python3 -"

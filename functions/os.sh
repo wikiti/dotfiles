@@ -1,7 +1,7 @@
 #!/bin/sh
 
 os() {
-  if [[ $(uname -s) == "Darwin" ]]
+  if [ $(uname -s) = "Darwin" ]
   then
     echo "MacOS"
   else
