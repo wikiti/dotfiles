@@ -20,5 +20,5 @@ mklink() {
     fi
   fi
 
-  echo "ln -s $1 $2"
+  ln -s $1 $2
 }
