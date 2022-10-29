@@ -15,7 +15,7 @@ curl https://raw.githubusercontent.com/wikiti/dotfiles/master/install.sh | sh
 You can also use a URL shortener to make it easier to remember!
 
 ````sh
-curl bit.ly/wikiti-dotfiles | sh
+curl -L bit.ly/wikiti-dotfiles | sh
 ````
 
 ## Contents

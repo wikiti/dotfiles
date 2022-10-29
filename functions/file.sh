@@ -14,8 +14,10 @@ mklink() {
 
   if [ -f "$2" ]
   then
-    if ! prompt "File $2 already exists. Would you like to overwrite it?"
+    if prompt "File $2 already exists. Would you like to overwrite it?"
     then
+      rm $2
+    else
       return 0
     fi
   fi
