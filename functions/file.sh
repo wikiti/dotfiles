@@ -22,3 +22,19 @@ mklink() {
 
   ln -s $1 $2
 }
+
+move() {
+  echo "Copying $1 into $2..."
+
+  if [ -d $2 ]
+  then
+    if prompt "dotfiles was already installed in $2. Do you want to replace it?"
+    then
+      rm -Rf $2
+    else
+      return 1
+    fi
+  fi
+
+  mv $1 $2
+}

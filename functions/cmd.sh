@@ -13,10 +13,14 @@ prompt() {
 
   if [ $(os) = "MacOS" ]
   then
-    read "response?"
+    read "response?" </dev/tty
   else
-    read -r response
+    read -r response </dev/tty
   fi
 
   [ -z "$response" ] || [ $response = "y" ] || [ $response = "Y" ]
+}
+
+quit() {
+  exit 0
 }

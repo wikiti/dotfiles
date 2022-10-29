@@ -12,5 +12,3 @@ else
   puts "Adding entry to $rc_home"
   echo "\n# Doftiles configuration\nsource $rc_local\n" >> $rc_home
 fi
-
-. $rc_local
