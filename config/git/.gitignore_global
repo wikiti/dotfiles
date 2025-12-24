@@ -1,5 +1,4 @@
 # OS generated files
-
 .DS_Store
 .DS_Store?
 ._*
@@ -7,12 +6,25 @@
 .Trashes
 ehthumbs.db
 Thumbs.db
+desktop.ini
 
 # Binary generated files
-
 *.com
 *.class
 *.dll
 *.exe
 *.o
 *.so
+*.pyc
+*.pyo
+
+# Logs and databases
+*.log
+*.sqlite
+
+# Temporary files
+*.bak
+*.swp
+*.swo
+*~
+*#

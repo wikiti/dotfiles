@@ -1,10 +1,23 @@
 #!/bin/sh
 
-script_dir="$( dirname -- "${BASH_SOURCE[0]}"; )"
-
-for file in "$script_dir"/*
+current_dir="$( dirname -- "${BASH_SOURCE[0]}"; )"
+for file in "$current_dir"/*
 do
-  [ "$file" != "$script_dir/rc" ] && . $file
+  [ "$file" != "$current_dir/rc" ] && . $file
 done
+
+zshrc_d="$HOME/.zshrc.d"
+if [ -d "$zshrc_d" ]; then
+  for file in "$zshrc_d"/*; do
+    [ -f "$file" ] && . "$file"
+  done
+fi
+
+bashrc_d="$HOME/.bashrc.d"
+if [ -d "$bashrc_d" ]; then
+  for file in "$bashrc_d"/*; do
+    [ -f "$file" ] && . "$file"
+  done
+fi
 
 return 0
