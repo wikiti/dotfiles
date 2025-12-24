@@ -33,8 +33,7 @@
   # Zsh >= 5.1 is required.
   [[ $ZSH_VERSION == (5.<1->*|<6->.*) ]] || return
 
-  # IF ENV_VAR "POWERLEVEL10K_REMOTE" IS SET TO "true", THEN ADD CONTEXT TO PROMPT
-  if [[ $POWERLEVEL10K_REMOTE == true ]]; then
+  if [[ "$POWERLEVEL10K_REMOTE" == "true" ]]; then
     # The list of segments shown on the left. Fill it with the most important segments.
     typeset -g POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(
       # =========================[ Line #1 ]=========================
@@ -232,18 +231,30 @@
   typeset -g POWERLEVEL9K_PROMPT_CHAR_LEFT_PROMPT_FIRST_SEGMENT_START_SYMBOL=
 
   ##################################[ dir: current directory ]##################################
-  # Default current directory color.
-  typeset -g POWERLEVEL9K_DIR_FOREGROUND=130
+  if [[ "$POWERLEVEL10K_REMOTE" == "true" ]]; then
+    # Default current directory color.
+    typeset -g POWERLEVEL9K_DIR_FOREGROUND=130
+    # Color of the shortened directory segments.
+    typeset -g POWERLEVEL9K_DIR_SHORTENED_FOREGROUND=130
+    # Color of the anchor directory segments. Anchor segments are never shortened. The first
+    # segment is always an anchor.
+    typeset -g POWERLEVEL9K_DIR_ANCHOR_FOREGROUND=166
+  else
+    # Default current directory color.
+    typeset -g POWERLEVEL9K_DIR_FOREGROUND=31
+    # Color of the shortened directory segments.
+    typeset -g POWERLEVEL9K_DIR_SHORTENED_FOREGROUND=103
+    # Color of the anchor directory segments. Anchor segments are never shortened. The first
+    # segment is always an anchor.
+    typeset -g POWERLEVEL9K_DIR_ANCHOR_FOREGROUND=39
+  fi
+
   # If directory is too long, shorten some of its segments to the shortest possible unique
   # prefix. The shortened directory can be tab-completed to the original.
   typeset -g POWERLEVEL9K_SHORTEN_STRATEGY=truncate_to_unique
   # Replace removed segment suffixes with this symbol.
   typeset -g POWERLEVEL9K_SHORTEN_DELIMITER=
-  # Color of the shortened directory segments.
-  typeset -g POWERLEVEL9K_DIR_SHORTENED_FOREGROUND=130
-  # Color of the anchor directory segments. Anchor segments are never shortened. The first
-  # segment is always an anchor.
-  typeset -g POWERLEVEL9K_DIR_ANCHOR_FOREGROUND=166
+
   # Display anchor directory segments in bold.
   typeset -g POWERLEVEL9K_DIR_ANCHOR_BOLD=true
   # Don't shorten directories that contain any of these files. They are anchors.
@@ -923,7 +934,7 @@
   ##################################[ context: user@hostname ]##################################
   # Context color when running with privileges.
 
-  if [[ $POWERLEVEL10K_REMOTE == true ]]; then
+  if [[ "$POWERLEVEL10K_REMOTE" == "true" ]]; then
     typeset -g POWERLEVEL9K_CONTEXT_ROOT_FOREGROUND=196
     # Default context color (no privileges, no SSH).
     typeset -g POWERLEVEL9K_CONTEXT_FOREGROUND=196
