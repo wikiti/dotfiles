@@ -3,6 +3,7 @@
 current_dir="$( dirname -- "${BASH_SOURCE[0]}"; )"
 for file in "$current_dir"/*
 do
+  echo "Loading $file"
   [ "$file" != "$current_dir/rc" ] && . $file
 done
 
