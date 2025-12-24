@@ -6,19 +6,28 @@ YELLOW='\033[1;33m'
 RESET='\033[0m'
 
 puts() {
-  echo $2 $1
+  echo $1
 }
 
 ok() {
-  printf $2 "$GREEN* $1$RESET"
+  print_formatted "$GREEN* $1$RESET" $2
 }
 
 fail() {
-  printf $2 "$RED- $1$RESET"
+  print_formatted "$RED- $1$RESET" $2
 }
 
 warn() {
-  printf $2 "$YELLOW- $1$RESET"
+  print_formatted "$YELLOW- $1$RESET" $2
+}
+
+print_formatted() {
+  if [ "$2" = "-n" ]
+  then
+    printf "$1"
+  else
+    printf "$1\n"
+  fi
 }
 
 trim() {

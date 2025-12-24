@@ -18,6 +18,11 @@
 [[ ! -o 'no_brace_expand' ]] || p10k_config_opts+=('no_brace_expand')
 'builtin' 'setopt' 'no_aliases' 'no_sh_glob' 'brace_expand'
 
+# NOTE: See colors with:
+#
+#     for i in {0..255}; do print -Pn "%K{$i}  %k%F{$i}${(l:3::0:)i}%f " ${${(M)$((i%6)):#3}:+$'\n'}; done
+#
+
 () {
   emulate -L zsh -o extended_glob
 
@@ -28,16 +33,31 @@
   # Zsh >= 5.1 is required.
   [[ $ZSH_VERSION == (5.<1->*|<6->.*) ]] || return
 
-  # The list of segments shown on the left. Fill it with the most important segments.
-  typeset -g POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(
-    # =========================[ Line #1 ]=========================
-    # os_icon               # os identifier
-    dir                     # current directory
-    vcs                     # git status
-    # =========================[ Line #2 ]=========================
-    newline                 # \n
-    prompt_char             # prompt symbol
-  )
+  # IF ENV_VAR "POWERLEVEL10K_REMOTE" IS SET TO "true", THEN ADD CONTEXT TO PROMPT
+  if [[ $POWERLEVEL10K_REMOTE == true ]]; then
+    # The list of segments shown on the left. Fill it with the most important segments.
+    typeset -g POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(
+      # =========================[ Line #1 ]=========================
+      context
+      # os_icon               # os identifier
+      dir                     # current directory
+      vcs                     # git status
+      # =========================[ Line #2 ]=========================
+      newline                 # \n
+      prompt_char             # prompt symbol
+    )
+  else
+    # The list of segments shown on the left. Fill it with the most important segments.
+    typeset -g POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(
+      # =========================[ Line #1 ]=========================
+      # os_icon               # os identifier
+      dir                     # current directory
+      vcs                     # git status
+      # =========================[ Line #2 ]=========================
+      newline                 # \n
+      prompt_char             # prompt symbol
+    )
+  fi
 
   # The list of segments shown on the right. Fill it with less important segments.
   # Right prompt on the last prompt line (where you are typing your commands) gets
@@ -84,7 +104,7 @@
     gcloud                  # google cloud cli account and project (https://cloud.google.com/)
     google_app_cred         # google application credentials (https://cloud.google.com/docs/authentication/production)
     toolbox                 # toolbox name (https://github.com/containers/toolbox)
-    context                 # user@hostname
+    # context               # user@hostname
     nordvpn                 # nordvpn connection status, linux only (https://nordvpn.com/)
     ranger                  # ranger shell (https://github.com/ranger/ranger)
     yazi                    # yazi shell (https://github.com/sxyazi/yazi)
@@ -213,17 +233,17 @@
 
   ##################################[ dir: current directory ]##################################
   # Default current directory color.
-  typeset -g POWERLEVEL9K_DIR_FOREGROUND=31
+  typeset -g POWERLEVEL9K_DIR_FOREGROUND=130
   # If directory is too long, shorten some of its segments to the shortest possible unique
   # prefix. The shortened directory can be tab-completed to the original.
   typeset -g POWERLEVEL9K_SHORTEN_STRATEGY=truncate_to_unique
   # Replace removed segment suffixes with this symbol.
   typeset -g POWERLEVEL9K_SHORTEN_DELIMITER=
   # Color of the shortened directory segments.
-  typeset -g POWERLEVEL9K_DIR_SHORTENED_FOREGROUND=103
+  typeset -g POWERLEVEL9K_DIR_SHORTENED_FOREGROUND=130
   # Color of the anchor directory segments. Anchor segments are never shortened. The first
   # segment is always an anchor.
-  typeset -g POWERLEVEL9K_DIR_ANCHOR_FOREGROUND=39
+  typeset -g POWERLEVEL9K_DIR_ANCHOR_FOREGROUND=166
   # Display anchor directory segments in bold.
   typeset -g POWERLEVEL9K_DIR_ANCHOR_BOLD=true
   # Don't shorten directories that contain any of these files. They are anchors.
@@ -902,11 +922,20 @@
 
   ##################################[ context: user@hostname ]##################################
   # Context color when running with privileges.
-  typeset -g POWERLEVEL9K_CONTEXT_ROOT_FOREGROUND=178
-  # Context color in SSH without privileges.
-  typeset -g POWERLEVEL9K_CONTEXT_{REMOTE,REMOTE_SUDO}_FOREGROUND=180
-  # Default context color (no privileges, no SSH).
-  typeset -g POWERLEVEL9K_CONTEXT_FOREGROUND=180
+
+  if [[ $POWERLEVEL10K_REMOTE == true ]]; then
+    typeset -g POWERLEVEL9K_CONTEXT_ROOT_FOREGROUND=196
+    # Default context color (no privileges, no SSH).
+    typeset -g POWERLEVEL9K_CONTEXT_FOREGROUND=196
+    # Context color in SSH without privileges.
+    typeset -g POWERLEVEL9K_CONTEXT_{REMOTE,REMOTE_SUDO}_FOREGROUND=202
+  else
+    typeset -g POWERLEVEL9K_CONTEXT_ROOT_FOREGROUND=178
+    # Default context color (no privileges, no SSH).
+    typeset -g POWERLEVEL9K_CONTEXT_FOREGROUND=180
+    # Context color in SSH without privileges.
+    typeset -g POWERLEVEL9K_CONTEXT_{REMOTE,REMOTE_SUDO}_FOREGROUND=180
+  fi
 
   # Context format when running with privileges: bold user@hostname.
   typeset -g POWERLEVEL9K_CONTEXT_ROOT_TEMPLATE='%B%n@%m'

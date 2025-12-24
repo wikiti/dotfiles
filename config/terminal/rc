@@ -1,9 +1,9 @@
 #!/bin/sh
 
-current_dir="$( dirname -- "${BASH_SOURCE[0]}"; )"
+current_dir="$(cd "$(dirname "$0")" >/dev/null 2>&1 && pwd)"
+
 for file in "$current_dir"/*
 do
-  echo "Loading $file"
   [ "$file" != "$current_dir/rc" ] && . $file
 done
 

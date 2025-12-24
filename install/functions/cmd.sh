@@ -9,7 +9,7 @@ cmd() {
 }
 
 prompt() {
-  warn "$1 [Y/n]: "
+  warn "$1 [Y/n]: " "-n"
 
   if [ $(os) = "MacOS" ]
   then

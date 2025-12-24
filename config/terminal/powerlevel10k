@@ -1,6 +1,6 @@
 #!/bin/sh
 
-current_dir="$( dirname -- "${BASH_SOURCE[0]}"; )"
+current_dir="$(cd "$(dirname "$0")" >/dev/null 2>&1 && pwd)"
 source $current_dir/../../.powerlevel10k/powerlevel10k.zsh-theme
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
