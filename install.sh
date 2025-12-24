@@ -9,6 +9,9 @@ if [ ! -d "$DOTFILES_TARGET/.git" ]; then
   cd "$DOTFILES_TMP" && . ./install/functions/all.sh && cd -
   ok "Initializing..."
   move "$DOTFILES_TMP" "$DOTFILES_TARGET" || quit
+else
+  # load functions from existing repo
+  cd "$DOTFILES_TARGET" && . ./install/functions/all.sh && cd -
 fi
 
 cd "$DOTFILES_TARGET"
